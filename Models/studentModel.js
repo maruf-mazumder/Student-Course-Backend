@@ -12,7 +12,10 @@ const studentSchema =   new mongoose.Schema({
   phone:String,
   Email:String,
   subjects: [
-    courseSchema
+    {
+      type:courseSchema,
+      refer:'Course'
+    }
   ]
 });
 const Student = mongoose.model(
