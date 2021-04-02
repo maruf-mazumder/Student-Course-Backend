@@ -6,6 +6,8 @@ const Student = mongoose.model(
   new mongoose.Schema({
     name: String,
     slug: String,
+    DOB:String,
+    Email:String,
     tutorials: [
       {
         type: mongoose.Schema.Types.ObjectId,

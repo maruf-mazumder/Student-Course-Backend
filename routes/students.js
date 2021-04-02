@@ -36,8 +36,9 @@ router.post('/',async (req,res)=>{
  
  let student = new Student({
      name:req.body.name,
-     tutorials:tutorials
-     
+     tutorials:tutorials,
+     DOB:req.body.DOB,
+     Email:req.body.Email
  });
     try{
         student = await student.save();
