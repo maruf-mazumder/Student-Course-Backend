@@ -1,17 +1,28 @@
 const mongoose = require("mongoose");
 
+// const {studentSchema} = require("./studentModel");
+
+const studentSchema =   new mongoose.Schema({
+  name: String
+});
+
+const courseSchema =  new mongoose.Schema({
+  name: String,
+  students: [
+    // {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Student"
+    // }
+    {
+      type:studentSchema,
+      ref:'Student'
+    }
+  ]
+});
 const Course = mongoose.model(
   "Course",
-  new mongoose.Schema({
-    name: String,
-    slug: String,
-    students: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Student"
-      }
-    ]
-  })
+  courseSchema
 );
 
-module.exports = Course;
+module.exports.Course = Course;
+module.exports.courseSchema = courseSchema;

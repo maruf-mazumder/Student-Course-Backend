@@ -1,20 +1,24 @@
 const mongoose = require("mongoose");
-const Course = require("./courseModel");
+// const {Course,courseSchema} = require("./courseModel");
 
+const courseSchema =  new mongoose.Schema({
+  name: String
+});
+
+const studentSchema =   new mongoose.Schema({
+  name: String,
+ 
+  DOB:String,
+  phone:String,
+  Email:String,
+  subjects: [
+    courseSchema
+  ]
+});
 const Student = mongoose.model(
   "Student",
-  new mongoose.Schema({
-    name: String,
-    slug: String,
-    DOB:String,
-    Email:String,
-    tutorials: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course"
-      }
-    ]
-  })
+  studentSchema
 );
 
-module.exports = Student;
+module.exports.Student = Student;
+module.exports.studentSchema = studentSchema;

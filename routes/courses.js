@@ -1,5 +1,6 @@
-const Course = require('../Models/courseModel');
-const Student = require('../Models/studentModel');
+const {Course} = require('../Models/courseModel');
+const {Student} = require('../Models/studentModel');
+const _ = require('lodash');
 const express = require('express');
 const router =  express.Router();
 
@@ -31,6 +32,18 @@ router.post('/',async (req,res)=>{
     let students = [];
     students[students.length]=req.body.students
     console.log(students);
+
+    // let subjects = [];
+    // let subject;
+    // subject = _.pick(req.body, ["subjects"]);
+    // console.log("req er vitore---",subject);
+    // let SubjectName = Object.values(subject);
+    // // subjects.push(SubjectName);
+    // // console.log("===>",...SubjectName);
+    // subjects.push(SubjectName[0]);
+    // console.log(subjects);
+
+
  
  let course = new Course({
      name:req.body.name,

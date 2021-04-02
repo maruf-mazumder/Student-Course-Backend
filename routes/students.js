@@ -1,6 +1,7 @@
 const Course = require('../Models/courseModel');
-const Student = require('../Models/studentModel');
+const {Student} = require('../Models/studentModel');
 const express = require('express');
+const _ = require('lodash');
 const router =  express.Router();
 
 
@@ -30,14 +31,21 @@ router.get('/',async (req,res)=>{
 
 
 router.post('/',async (req,res)=>{
-    let tutorials = [];
-    tutorials[tutorials.length]=req.body.tutorials
-    console.log(tutorials);
+    let subjects = [];
+    let subject;
+    subject = _.pick(req.body, ["subjects"]);
+    console.log("req er vitore---",subject);
+    let SubjectName = Object.values(subject);
+    // subjects.push(SubjectName);
+    // console.log("===>",...SubjectName);
+    subjects.push(SubjectName[0]);
+    console.log(subjects);
  
  let student = new Student({
      name:req.body.name,
-     tutorials:tutorials,
+     subjects:subjects,
      DOB:req.body.DOB,
+     phone:req.body.phone,
      Email:req.body.Email
  });
     try{
@@ -53,12 +61,20 @@ router.post('/',async (req,res)=>{
 
 router.put('/:id',async (req,res)=>{
     let student = await Student.findById(req.params.id);
+    let subject;
+    // let subjects=[];
     student.name = req.body.name;
-    if(req.body.tutorials!==null  && student.tutorials.indexOf(req.body.tutorials) <= -1 ){
-     let tutorials = student.tutorials;
-    tutorials.push(req.body.tutorials)
-    console.log(tutorials);
-    student.tutorials=tutorials;
+    if(req.body.subjects!==null  && student.subjects.indexOf(req.body.subjects[0]) <= -1 ){
+    //  let tutorials = student.tutorials;
+    // tutorials.push(req.body.tutorials)
+    // console.log(tutorials);
+    // student.tutorials=tutorials;
+
+    subject = _.pick(req.body, ["subjects"]);
+    let SubjectName = Object.values(subject);
+   
+    student.subjects.push(SubjectName[0]);
+    console.log(student.subjects);
     }
     // if(req.params.courseRemove){
     //     const index = student.tutorials.indexOf(req.params.courseRemove);
